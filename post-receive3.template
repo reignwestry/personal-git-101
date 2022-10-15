@@ -1,0 +1,10 @@
+#!/bin/bash
+
+	# Project UPLOAD DIRECTORY PATH
+	git --work-tree=~/public_html/ --git-dir=~/public_html/.git
+	git checkout -f master
+
+                    # COMMAND LINE NOTIFICATION
+                    echo "********************************"
+                    echo "** PROJECT UPLOADED TO PROD repo **"
+                    echo "********************************"

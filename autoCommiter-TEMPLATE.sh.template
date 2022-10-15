@@ -1,0 +1,13 @@
+
+#!/bin/sh
+# Git Auto Commiter
+cd D:\.Books\Reactjs\Pro React 16\autoCommiter.sh
+
+git add .gitignore
+git add .
+timestamp() {
+  date +"at %H:%M:%S on %d/%m/%Y"
+}
+git commit -am "Regular auto-commit $(timestamp)"
+ping www.github.com && git push origin --all || echo "not connected"
+git push origin master

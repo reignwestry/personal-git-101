@@ -1,0 +1,60 @@
+#!/bin/bash
+
+SITE_NAME="React_Projects"
+SITE_PATH="/public_html/react_projects"
+BRANCH="master"
+GIT_DIR="/public_html/react_projects/.git"
+
+
+echo "################################"
+echo "# **** DEPLOYING PROJECT ***** #"
+echo "################################"
+
+git --work-tree=$SITE_PATH --git-dir=$GIT_DIR checkout -f
+
+
+echo "**** $SITE_NAME [post-receive] hook received."
+
+# while read oldrev newrev ref
+# do
+  # branch_received=`echo $ref | cut -d/ -f3`
+
+  echo "**** Received [$branch_received] branch."
+ 
+  # Making sure we received the branch we want.
+  # if [ $branch_received = $BRANCH ]; then
+    # cd $SITE_PATH
+    
+    # Unset to use current working directory.
+    # unset GIT_DIR
+   :'
+    echo "**** Pulling changes."
+    git pull origin $BRANCH
+    '
+    # Instead of pulling we can also do a checkout.
+    
+    echo "**** Checking out branch."
+    GIT_WORK_TREE=$SITE_PATH git checkout -f $BRANCH
+    
+
+    # Or we can also do a fetch and reset.
+    : '
+    echo "**** Fetching and reseting."
+    git fetch --all
+    git reset --hard origin/$BRANCH
+    '
+    
+  #else
+    #echo "**** Invalid branch, aborting."
+    exit 0
+
+  #fi
+done
+
+# [Restart/reload webserver stuff here]
+
+echo "################################"
+echo "# **** PROJECT DEPLOYED! Done. #"
+echo "################################"
+
+exec git-update-server-info
